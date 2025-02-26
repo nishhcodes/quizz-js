@@ -8,6 +8,8 @@ function getRandomQuestion() {
     return randomIndex;
 }
 
+const wrapper = document.querySelector('.wrapper');
+
 function handleQuizzQuestions(index) {
 
     const scoreText = document.querySelector('.score');
@@ -18,6 +20,8 @@ function handleQuizzQuestions(index) {
     
 
     answerText.innerHTML = '';
+
+    
 
 
     questionText.innerHTML = questions[index].question;
@@ -45,6 +49,25 @@ function handleQuizzQuestions(index) {
         })
     })
     
+    questions.splice(index, 1);
 }
 
+
 handleQuizzQuestions(getRandomQuestion());
+
+setTimeout(() => {
+    wrapper.innerHTML = '';
+    
+    const score = document.createElement('p');
+    score.className = "text-2xl text-gray-50 font-bold"
+    score.textContent = `Your score is: ${quizzScore}`;
+    const attempts = document.createElement('p');
+    attempts.textContent = `Number of questions attempted: ${attempted}`;
+    const accuracy = document.createElement('p');
+    accuracy.textContent = `Your accuracy is: ${quizzScore / questions.length * 100}`;
+
+    wrapper.className = "flex justify-center items-center flex-col h-screen gap-4"
+    wrapper.appendChild(score);
+    wrapper.appendChild(attempts);
+    wrapper.appendChild(accuracy);
+},1000);
