@@ -21,9 +21,6 @@ function handleQuizzQuestions(index) {
 
     answerText.innerHTML = '';
 
-    
-
-
     questionText.innerHTML = questions[index].question;
     topicText.textContent = questions[index].topic;
 
@@ -55,19 +52,31 @@ function handleQuizzQuestions(index) {
 
 handleQuizzQuestions(getRandomQuestion());
 
-setTimeout(() => {
-    wrapper.innerHTML = '';
-    
-    const score = document.createElement('p');
-    score.className = "text-2xl text-gray-50 font-bold"
-    score.textContent = `Your score is: ${quizzScore}`;
-    const attempts = document.createElement('p');
-    attempts.textContent = `Number of questions attempted: ${attempted}`;
-    const accuracy = document.createElement('p');
-    accuracy.textContent = `Your accuracy is: ${quizzScore / questions.length * 100}`;
 
-    wrapper.className = "flex justify-center items-center flex-col h-screen gap-4"
-    wrapper.appendChild(score);
-    wrapper.appendChild(attempts);
-    wrapper.appendChild(accuracy);
-},1000);
+let timer = 60; 
+const countdown = setInterval(() => {
+    console.log(`Time left: ${timer} sec`);
+    timer--;
+    if (timer < 0) {
+        clearInterval(countdown);
+        wrapper.innerHTML = '';
+
+        const score = document.createElement('p');
+        score.className = "text-2xl text-gray-50 font-bold";
+        score.textContent = `Your score is: ${quizzScore}`;
+        const attempts = document.createElement('p');
+        attempts.className = "text-2xl text-gray-50 font-bold";
+        attempts.textContent = `Questions attempted: ${attempted}`;
+        const accuracy = document.createElement('p');
+        accuracy.className = "text-2xl text-gray-50 font-bold";
+        accuracy.textContent = `Your accuracy is: ${(quizzScore / questions.length * 100).toFixed(2)}`;
+        
+        wrapper.className = "flex justify-center items-center flex-col h-screen gap-4";
+
+        wrapper.appendChild(score);
+        wrapper.appendChild(attempts);
+        wrapper.appendChild(accuracy);
+    }
+}, 1000);
+
+
