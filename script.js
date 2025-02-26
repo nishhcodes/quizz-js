@@ -54,7 +54,7 @@ function handleQuizzQuestions(index) {
 handleQuizzQuestions(getRandomQuestion());
 
 
-let timer = 60; 
+let timer = 180; 
 const countdown = setInterval(() => {
     timerText.textContent = `${timer}`;
 
